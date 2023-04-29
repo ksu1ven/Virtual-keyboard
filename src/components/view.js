@@ -73,7 +73,7 @@ export default class View {
         }
       }
       div.classList.add('key');
-      if (div.innerHTML === 'Backspace') { div.classList.add('backspace'); } else if (div.innerHTML === 'Tab') { div.classList.add('tab'); } else if (div.innerHTML === 'Del') { div.classList.add('del'); } else if (div.innerHTML === 'Caps Lock') {
+      if (div.innerHTML === 'Win') { div.classList.add('meta'); } else if (div.innerHTML === 'Backspace') { div.classList.add('backspace'); } else if (div.innerHTML === 'Tab') { div.classList.add('tab'); } else if (div.innerHTML === 'Del') { div.classList.add('del'); } else if (div.innerHTML === 'Caps Lock') {
         div.classList.add('caps');
         if (caps === 'on') { div.classList.add('active'); }
       } else if (div.innerHTML === 'Enter') { div.classList.add('enter'); } else if (div.innerHTML === 'Shift') { div.classList.add('shift'); } else if (div.innerHTML === 'Shift ') {

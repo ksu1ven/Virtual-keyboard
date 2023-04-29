@@ -1,6 +1,7 @@
 import './style.scss';
 import View from './components/view';
 import KeyEvents from './components/key-events';
+import ClickEvents from './components/click-events';
 
 class Keyboard {
   constructor() {
@@ -16,6 +17,8 @@ class Keyboard {
 
   addEvents() {
     let pressedKeys = new Set();
+    const keyboard = document.querySelector('.keyboard');
+
     document.addEventListener('keydown', (event) => {
       pressedKeys.add(event.key);
       if (event.key === 'CapsLock') {
@@ -36,6 +39,28 @@ class Keyboard {
       }
       KeyEvents.removeAnimationFromKeys(event, this.caps);
       pressedKeys = new Set();
+    });
+
+    keyboard.addEventListener('mousedown', (event) => {
+      ClickEvents.mouseDown(event, this.caps);
+      const pushedKey = event.target.closest('div');
+      if (!pushedKey) return;
+      if (pushedKey.classList.contains('caps')) {
+        if (this.caps === 'off') {
+          this.caps = 'on';
+        } else {
+          this.caps = 'off';
+          pushedKey.classList.remove('active');
+        }
+      }
+    });
+
+    keyboard.addEventListener('mouseup', () => ClickEvents.mouseUp());
+
+    keyboard.addEventListener('click', (e) => {
+      if (!e.target.closest('div')) return;
+      e.target.closest('div').classList.add('animation');
+      setTimeout(() => e.target.closest('div').classList.remove('animation'), 1000);
     });
   }
 

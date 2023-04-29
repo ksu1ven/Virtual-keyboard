@@ -1,9 +1,24 @@
+export function getCaretPos() {
+  const textarea = document.querySelector('textarea');
+  textarea.focus();
+  if (textarea.selectionStart) return textarea.selectionStart;
+  if (document.selection) {
+    const sel = document.selection.createRange();
+    const clone = sel.duplicate();
+    sel.collapse(true);
+    clone.moveToElementText(textarea);
+    clone.setEndPoint('EndToEnd', sel);
+    return clone.text.length;
+  }
+  return 0;
+}
+
 export default class KeyEvents {
   static highlighAndInputLetters(event, caps) {
     const textarea = document.querySelector('.textarea');
     textarea.focus();
     const keys = document.querySelectorAll('.key');
-    const caret = KeyEvents.getCaretPos();
+    const caret = getCaretPos();
     const key = [...keys].find((el) => el.id === event.code);
     if (key === undefined) return;
     key.classList.add('active');
@@ -57,20 +72,5 @@ export default class KeyEvents {
     if (key.classList.contains('caps') && caps === 'on') return;
     key.classList.remove('active');
     setTimeout(() => key.classList.remove('animation'), 1000);
-  }
-
-  static getCaretPos() {
-    const textarea = document.querySelector('textarea');
-    textarea.focus();
-    if (textarea.selectionStart) return textarea.selectionStart;
-    if (document.selection) {
-      const sel = document.selection.createRange();
-      const clone = sel.duplicate();
-      sel.collapse(true);
-      clone.moveToElementText(textarea);
-      clone.setEndPoint('EndToEnd', sel);
-      return clone.text.length;
-    }
-    return 0;
   }
 }
