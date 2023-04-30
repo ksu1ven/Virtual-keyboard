@@ -1,6 +1,6 @@
 import './style.scss';
 import View from './components/view';
-import KeyEvents from './components/key-events';
+import KeyEvents, { showCat } from './components/key-events';
 import ClickEvents from './components/click-events';
 
 class Keyboard {
@@ -60,6 +60,8 @@ class Keyboard {
     keyboard.addEventListener('click', (e) => {
       if (!e.target.closest('div')) return;
       e.target.closest('div').classList.add('animation');
+      showCat(e.target.closest('div').getBoundingClientRect());
+      document.querySelector('audio').play();
       setTimeout(() => e.target.closest('div').classList.remove('animation'), 1000);
     });
   }

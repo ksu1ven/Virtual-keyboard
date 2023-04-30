@@ -24,6 +24,13 @@ export default class View {
     main.appendChild(p);
     p.classList.add('change-language');
     p.innerHTML = 'Press Shift + Alt to change language';
+    const audio = new Audio('./assets/myau.mp3');
+    document.body.append(audio);
+    const img = document.createElement('img');
+    img.src = './assets/persik.png';
+    document.body.append(img);
+    img.classList.add('cat');
+    img.classList.add('hidden');
   }
 
   createTopNumbers() {

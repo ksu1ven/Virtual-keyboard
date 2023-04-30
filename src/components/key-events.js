@@ -12,6 +12,15 @@ export function getCaretPos() {
   }
   return 0;
 }
+export function showCat(position) {
+  const cat = document.querySelector('.cat');
+  cat.style.top = `${position.top + 10}px`;
+  cat.style.left = `${position.left + position.width / 2 - 10}px`;
+  cat.classList.remove('hidden');
+  setTimeout(() => {
+    cat.classList.add('hidden');
+  }, 1000);
+}
 
 export default class KeyEvents {
   static highlighAndInputLetters(event, caps) {
@@ -21,8 +30,6 @@ export default class KeyEvents {
     const caret = getCaretPos();
     const key = [...keys].find((el) => el.id === event.code);
     if (key === undefined) return;
-    key.classList.add('active');
-    key.classList.add('animation');
     if (key.id === 'MetaLeft') {
       event.preventDefault();
       return;
@@ -63,6 +70,10 @@ export default class KeyEvents {
       textarea.selectionStart = caret + 1;
       textarea.selectionEnd = caret + 1;
     }
+    key.classList.add('active');
+    key.classList.add('animation');
+    showCat(key.getBoundingClientRect());
+    document.querySelector('audio').play();
   }
 
   static removeAnimationFromKeys(event, caps) {
