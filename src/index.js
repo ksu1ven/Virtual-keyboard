@@ -67,11 +67,11 @@ class Keyboard {
   }
 
   changeLang() {
-    localStorage.setItem('a_saved', this.lang);
     document.querySelector('.keyboard').innerHTML = '';
     if (this.lang === 'ru') {
       this.lang = 'eng';
     } else { this.lang = 'ru'; }
+    localStorage.setItem('a_saved', this.lang);
     this.view.createLetters(this.lang);
     if (this.caps === 'on') {
       document.querySelector('#CapsLock').classList.add('active');
